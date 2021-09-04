@@ -30,9 +30,11 @@ fs.readdir('./src/commands', (err, commandFolders) => {
             jsfiles.forEach(jsfile => {
                 const cmd = require(`./commands/${commandFolder}/${jsfile}`);
                 client.commands.set(cmd.info.name, cmd);
-                cmd.info.aliases.forEach(alias => {
-                    client.aliases.set(alias, cmd.info.name);
-                });
+                if (cmd.info.aliases) {
+                    cmd.info.aliases.forEach(alias => {
+                        client.aliases.set(alias, cmd.info.name);
+                    });
+                };
                 console.log(`${jsfile} loaded!`);
             });
         });
@@ -62,11 +64,14 @@ client.on('messageCreate', async msg => {
         }
 
         try {
-            if (args.length < command.info.minArgs || args.length > command.info.maxArgs) {
-                return command.argsErr(msg, prefix);
+            const { minArgs, maxArgs, usage } = command.info
+            if (minArgs !== undefined && args.length < minArgs || maxArgs !== undefined && args.length > maxArgs) {
+                return msg.channel.send({
+                    content: `Incorrect number of arguments provided, correct usage:\n\`${prefix}${usage}\``
+                })
             } else {
                 command.run(client, msg, args);
-            };
+            }
         } catch (error) {
             console.log(error);
         };
