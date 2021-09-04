@@ -1,7 +1,7 @@
 module.exports.info = {
     name: 'ping',
     aliases: [],
-    minArgs: 10,
+    minArgs: 0,
     maxArgs: 99,
 };
 
