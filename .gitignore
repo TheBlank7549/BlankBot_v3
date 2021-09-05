@@ -6,8 +6,8 @@ testConfig.json
 # Logs
 
 logs
-_.log
-npm-debug.log_
+.log
+npm-debug.log\_
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log\*
