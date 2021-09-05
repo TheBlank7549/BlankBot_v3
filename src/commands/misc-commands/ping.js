@@ -1,7 +1,6 @@
 module.exports.info = {
     name: 'ping',
-    aliases: [],
-    category: "admin",
+    category: "misc",
     description: 'Shows the latency of the bot',
     usage: 'ping'
 };
