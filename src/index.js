@@ -3,7 +3,7 @@ const { Client, Intents, Collection } = require('discord.js');
 require('dotenv').config();
 
 // Setting the prefix, will modify it to allow custom server prefixes after implementing a database
-const { defaultPrefix } = require('../config.json');
+const defaultPrefix = process.env.defPREFIX
 let prefix = defaultPrefix;
 
 // Importing the event handlers
