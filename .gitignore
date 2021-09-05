@@ -1,7 +1,7 @@
 # Files I set to not be pushed
 
 package-lock.json
-testConfig.json
+config2.json
 
 # Logs
 
