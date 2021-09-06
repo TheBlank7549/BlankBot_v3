@@ -1,5 +1,7 @@
 # Files I set to not be pushed
 package-lock.json
+eval.js
+test.js
 
 # Logs
 
