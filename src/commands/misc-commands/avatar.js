@@ -13,17 +13,15 @@ module.exports.run = async (client, msg, args) => {
     let targetId = msg.author.id;
     let target;
 
-    if (args[0]) {
-        try {
-            // Gets a clean id from the first args
-            targetId = args[0].match(/^<?@?!?(\d{18})>?$/)[1];
-            // Gets the target as a member from the guild
-            await msg.guild.members.fetch(targetId).then(member => {
-                target = member;
-            }).catch(console.error);
-        } catch (error) {
-            console.log(error);
-        };
+    try {
+        // Gets a clean id from the first arg, else the author id is used
+        if (args[0]) targetId = args[0].match(/^<?@?!?(\d{18})>?$/)[1];
+        // Gets the target as a member from the guild
+        await msg.guild.members.fetch(targetId).then(member => {
+            target = member;
+        }).catch(console.error);
+    } catch (error) {
+        console.log(error);
     };
 
     // Returns if no target could be found
