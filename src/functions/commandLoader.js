@@ -20,7 +20,7 @@ module.exports = client => {
 
                 // Adding the command names, aliases and functions to the appropriate collections
                 jsfiles.forEach(jsfile => {
-                    const cmd = require(`./commands/${commandFolder}/${jsfile}`);
+                    const cmd = require(`../commands/${commandFolder}/${jsfile}`);
                     client.commands.set(cmd.info.name, cmd);
                     if (cmd.info.aliases) {
                         cmd.info.aliases.forEach(alias => {
