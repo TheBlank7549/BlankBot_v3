@@ -5,7 +5,8 @@ module.exports.logStartup = async client => {
     const logChannel = client.channels.cache.find(ch => ch.id === '885581415792668742');
 
     const logEmbed = new MessageEmbed()
-        .setTitle('<:successful:871123822596743250> Successful Startup')
+        .setColor('#ffffff')
+        .setTitle(`<:successful:871123822596743250> Successful Startup for:\n${client.user.tag}`)
         .setTimestamp();
 
     logChannel.send({
@@ -19,6 +20,7 @@ module.exports.logSuccessfulCmd = async (client, msg) => {
     const logChannel = client.channels.cache.find(ch => ch.id === '884716667060502588');
 
     const logEmbed = new MessageEmbed()
+        .setColor('#ffffff')
         .setTitle('<:successful:871123822596743250> Successful command')
         .addFields(
             {
@@ -47,6 +49,7 @@ module.exports.logFailedCmd = async (client, msg) => {
     const logChannel = client.channels.cache.find(ch => ch.id === '884716667060502588');
 
     const logEmbed = new MessageEmbed()
+        .setColor('#ffffff')
         .setTitle('<:unsuccessful:871123822634483732> Failed command')
         .addFields(
             {
