@@ -12,14 +12,21 @@ module.exports.info = {
 module.exports.run = async (client, msg, args) => {
     let targetId = msg.author.id;
     let target;
-    try {
-        if (args[0]) targetId = args[0].match(/^<?@?!?(\d{18})>?$/)[1];
-        await msg.guild.members.fetch(targetId).then(member => {
-            target = member;
-        }).catch(console.error);
-    } catch (error) {
-        console.error(error);
+
+    if (args[0]) {
+        try {
+            // Gets a clean id from the first args
+            targetId = args[0].match(/^<?@?!?(\d{18})>?$/)[1];
+            // Gets the target as a member from the guild
+            await msg.guild.members.fetch(targetId).then(member => {
+                target = member;
+            }).catch(console.error);
+        } catch (error) {
+            console.log(error);
+        };
     };
+
+    // Returns if no target could be found
     if (!target) {
         msg.channel.send({
             content: 'I could not find the user'
