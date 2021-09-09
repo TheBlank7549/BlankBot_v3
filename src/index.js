@@ -21,10 +21,10 @@ client.commands = new Collection();
 client.aliases = new Collection();
 
 // The command loader using fs
-require('./commandLoader.js')(client);
+require('./functions/commandLoader.js')(client);
 
 // The bot events
-client.on('ready', async () => readyEvent());
+client.on('ready', async () => readyEvent(client));
 client.on('messageCreate', async msg => msgCreateEvent(client, msg, prefix));
 
 // Logging into the account

@@ -1,3 +1,5 @@
+const logger = require('../../functions/logger.js');
+
 module.exports.info = {
     name: 'ping',
     category: "misc",
@@ -12,5 +14,6 @@ module.exports.run = async (client, msg, args) => {
         m.edit({
             content: `Pong, but \`${m.createdTimestamp - msg.createdTimestamp}ms\` later!`
         });
+        logger.logSuccessfulCmd(client, msg);
     });
 };
