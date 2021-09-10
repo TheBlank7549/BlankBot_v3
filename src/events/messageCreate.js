@@ -1,3 +1,5 @@
+const { Permissions } = require('discord.js');
+
 module.exports = async (client, msg, prefix) => {
     // Returning if the msg author is a bot
     if (msg.author.bot) return;
@@ -29,7 +31,7 @@ module.exports = async (client, msg, prefix) => {
                 });
                 return;
             };
-            if (category === 'admin' && !msg.member.permissions.has('ADMINISTRATOR')) {
+            if (category === 'admin' && !msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
                 await msg.channel.send({
                     content: `<@${msg.author.id}> You do not have permission to use this command.\nContact a server administrator if needed`
                 }).then(reply => {
