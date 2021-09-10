@@ -10,9 +10,11 @@ module.exports.info = {
 };
 
 module.exports.run = async (client, msg, args) => {
+    // Gets the part of the content after the cmd
     const name = msg.content.split(/ +/g).slice(1).join(' ');
 
     await msg.channel.send({
+        // Asks for name change confirmation
         content: `Are you sure you want to change the name to \`${name}\`?`
     }).then(confirmQuery => {
         msgFilter = m => m.author.id === msg.author.id;
@@ -24,17 +26,20 @@ module.exports.run = async (client, msg, args) => {
         }).then(collectedCollection => {
             const collectedMsg = collectedCollection.first().content.toLowerCase();
 
+            // Checks if the reply is "y" or "yes"
             if (collectedMsg !== 'yes' && collectedMsg !== 'y') {
                 return confirmQuery.channel.send({
                     content: 'Name change aborted'
                 });
             } else {
                 try {
+                    // CHanges the bot's username
                     client.user.setUsername(name).then(() => {
                         confirmQuery.channel.send({
                             content: `Name successfully changed to \`${name}\``
                         });
                     }).catch(() => {
+                        // Executed if the name can't be changed, usually due to rate-limits
                         confirmQuery.channel.send({
                             content: 'The name could not be changed'
                         });
@@ -44,6 +49,7 @@ module.exports.run = async (client, msg, args) => {
                 }
             }
         }).catch(() => {
+            // Executed if the reply isn't "y" or "yes"
             confirmQuery.channel.send({
                 content: 'Name change aborted'
             });
