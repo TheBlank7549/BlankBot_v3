@@ -5,12 +5,12 @@ module.exports.info = {
     aliases: ['changename'],
     category: "owner",
     minArgs: 1,
-    description: 'Shows the latency of the bot',
+    description: 'Changes the username of the bot',
     usage: 'setname <new name>'
 };
 
 module.exports.run = async (client, msg, args) => {
-    const name = msg.content.split(/ /g).slice(1).join(' ');
+    const name = msg.content.split(/ +/g).slice(1).join(' ');
 
     await msg.channel.send({
         content: `Are you sure you want to change the name to \`${name}\`?`
