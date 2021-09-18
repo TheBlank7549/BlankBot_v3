@@ -1,4 +1,5 @@
 const { Permissions } = require('discord.js');
+const logger = require('../functions/logger.js');
 
 module.exports = async (client, msg, prefix) => {
     // Returning if the msg author is a bot
@@ -29,6 +30,7 @@ module.exports = async (client, msg, prefix) => {
                 }).then(reply => {
                     setTimeout(() => reply.delete(), 10000);
                 });
+                logger.logFailedCmd(client, msg);
                 return;
             };
             if (category === 'admin' && !msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
@@ -37,17 +39,21 @@ module.exports = async (client, msg, prefix) => {
                 }).then(reply => {
                     setTimeout(() => reply.delete(), 10000);
                 });
+                logger.logFailedCmd(client, msg);
                 return;
             };
 
             // Checks if any arg count requirements are met
             if (minArgs !== undefined && args.length < minArgs || maxArgs !== undefined && args.length > maxArgs) {
-                return msg.channel.send({
+                msg.channel.send({
                     content: `Incorrect number of arguments provided, correct usage:\n\`${prefix}${usage}\``
                 });
-            } else {
-                command.run(client, msg, args);
-            };
+                logger.logFailedCmd(client, msg);
+                return;
+            }
+
+            command.run(client, msg, args);
+
         } catch (error) {
             console.log(error);
         };

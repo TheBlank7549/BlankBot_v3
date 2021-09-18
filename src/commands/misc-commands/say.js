@@ -2,7 +2,7 @@ const logger = require('../../functions/logger.js');
 
 module.exports.info = {
     name: 'say',
-    alises: ['tell', 'speak'],
+    aliases: ['tell', 'speak'],
     category: "misc",
     minArgs: 1,
     description: 'Says something on your behalf',
