@@ -12,7 +12,6 @@ module.exports = client => {
     const defaultHelpEmbed = new MessageEmbed()
         .setColor('#ffffff')
         .setDescription('Shows all the available commands')
-        .setTimestamp();
 
     // Adds fields to the basic embed where needed
     if (!miscCmds && !adminCmds && !ownerCmds) {

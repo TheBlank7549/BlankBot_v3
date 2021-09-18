@@ -61,7 +61,9 @@ module.exports.run = async (client, msg, args) => {
     // Gets the "defaultHelp" embed created in helpLoader.js
     const defHelpEmbed = client.commands.get('defaultHelp');
     // Adds the author to the embed
-    defHelpEmbed.setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }));
+    defHelpEmbed
+        .setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }))
+        .setTimestamp();
 
     msg.channel.send({
         embeds: [defHelpEmbed]
