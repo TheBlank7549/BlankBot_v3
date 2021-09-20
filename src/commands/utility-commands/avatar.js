@@ -4,7 +4,7 @@ const logger = require('../../functions/logger.js');
 module.exports.info = {
     name: 'avatar',
     aliases: ['av', 'pfp'],
-    category: "misc",
+    category: "utility",
     description: 'Shows the target\'s or user\'s avatar',
     usage: 'avatar [@ or id of target]'
 };

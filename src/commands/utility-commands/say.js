@@ -3,9 +3,9 @@ const logger = require('../../functions/logger.js');
 module.exports.info = {
     name: 'say',
     aliases: ['tell', 'speak'],
-    category: "misc",
+    category: "utility",
     minArgs: 1,
-    description: 'Says something on your behalf',
+    description: 'Say something as the bot xD',
     usage: 'say <text>'
 };
 
