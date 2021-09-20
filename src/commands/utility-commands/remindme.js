@@ -19,7 +19,7 @@ module.exports.run = async (client, msg, args) => {
     // Returns if the delay isn't valid
     if (!delay) {
         msg.channel.send({
-            content: `\'${delayTime}\' is not a valid duration`
+            content: `\`${delayTime}\` is not a valid duration`
         });
         logger.logFailedCmd(client, msg);
         return;
@@ -32,7 +32,7 @@ module.exports.run = async (client, msg, args) => {
 
     // Marks the start of the timer and says how long is left
     await msg.channel.send({
-        content: `Oki, u'll be reminded in ${delay.properTime}`
+        content: `Oki, I will remind you in ${delay.properTime}`
     }).then(m => {
         logger.logSuccessfulCmd(client, msg);
         // Reminds after the set duration

@@ -27,7 +27,7 @@ module.exports.run = async (client, msg, args) => {
     // Returns if no target could be found
     if (!target) {
         msg.channel.send({
-            content: 'I could not find the user'
+            content: 'I could not find that user'
         });
         logger.logFailedCmd(client, msg);
         return;
