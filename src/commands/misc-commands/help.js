@@ -12,15 +12,16 @@ module.exports.run = async (client, msg, args) => {
     // Checks if the default help is wanted, or a specific one
     if (args[0]) {
         let command;
-        // Gets the target md from the client.commands collection
+        // Gets the target cmd from the client.commands collection
         if (client.commands.has(args[0])) {
             command = client.commands.get(args[0]);
         } else if (client.aliases.has(args[0])) {
             command = client.commands.get(client.aliases.get(args[0]));
         } else {
             // Executed if the target cmd doesn't exist
+            let prefix = process.env.defPREFIX;
             msg.channel.send({
-                content: `The \`${args[0]}\` command could not be found`
+                content: `The \`${args[0]}\` command does not exist\nSee a list of all commands with \`${prefix}help\``
             });
             logger.logFailedCmd(client, msg);
             return;
@@ -59,7 +60,12 @@ module.exports.run = async (client, msg, args) => {
 
     // The default help, if no specific cmd is given
     // Gets the "defaultHelp" embed created in helpLoader.js
-    const defHelpEmbed = client.commands.get('defaultHelp');
+    let defHelpEmbed;
+    if (msg.author.id === '713019901333340192') {
+        defHelpEmbed = client.helpEmbeds.get('ownerHelp');
+    } else {
+        defHelpEmbed = client.helpEmbeds.get('defaultHelp');
+    }
     // Adds the author to the embed
     defHelpEmbed
         .setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }))

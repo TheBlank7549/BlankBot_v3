@@ -19,6 +19,7 @@ const client = new Client({
 });
 client.commands = new Collection();
 client.aliases = new Collection();
+client.helpEmbeds = new Collection();
 
 // The command loader using fs
 require('./functions/commandLoader.js')(client);
