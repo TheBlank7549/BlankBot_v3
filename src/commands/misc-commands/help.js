@@ -22,7 +22,7 @@ module.exports.run = async (client, msg, args) => {
             msg.channel.send({
                 content: `The \`${args[0]}\` command could not be found`
             });
-            logger.logFailedCmd(client.msg);
+            logger.logFailedCmd(client, msg);
             return;
         }
 
