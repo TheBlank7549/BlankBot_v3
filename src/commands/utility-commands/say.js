@@ -14,6 +14,6 @@ module.exports.run = async (client, msg, args) => {
 
     msg.channel.send({
         content: text
-    }).then(() => msg.delete())
+    }).then(() => msg.delete()).catch(console.error);
     logger.logSuccessfulCmd(client, msg);
 };

@@ -19,7 +19,7 @@ module.exports.run = (client, msg, args) => {
     if (!num1 || !num2) {
         msg.channel.send({
             content: `**${args[0]}** - **${args[1]}** is not a valid range`
-        });
+        }).catch(console.error);
         logger.logFailedCmd(client, msg);
         return;
     };
@@ -34,13 +34,13 @@ module.exports.run = (client, msg, args) => {
     } else if (num1 > num2) {
         msg.channel.send({
             content: `**${num1}** - **${num2}** is not a valid range`
-        });
+        }).catch(console.error);
         logger.logFailedCmd(client, msg);
         return;
     };
 
     msg.channel.send({
         content: `Given range: ${range},\nSo I choose ${randomNum}`
-    });
+    }).catch(console.error);
     logger.logSuccessfulCmd(client, msg);
 };

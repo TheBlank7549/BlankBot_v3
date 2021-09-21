@@ -22,7 +22,7 @@ module.exports.run = async (client, msg, args) => {
             let prefix = process.env.defPREFIX;
             msg.channel.send({
                 content: `The \`${args[0]}\` command does not exist\nSee a list of all commands with \`${prefix}help\``
-            });
+            }).catch(console.error);
             logger.logFailedCmd(client, msg);
             return;
         }
@@ -53,7 +53,7 @@ module.exports.run = async (client, msg, args) => {
 
         msg.channel.send({
             embeds: [helpEmbed]
-        });
+        }).catch(console.error);
         logger.logSuccessfulCmd(client, msg);
         return;
     };
@@ -73,6 +73,6 @@ module.exports.run = async (client, msg, args) => {
 
     msg.channel.send({
         embeds: [defHelpEmbed]
-    });
+    }).catch(console.error);
     logger.logSuccessfulCmd(client, msg);
 };

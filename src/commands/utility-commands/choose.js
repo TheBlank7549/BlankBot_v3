@@ -14,6 +14,6 @@ module.exports.run = (client, msg, args) => {
     const randomNum = Math.floor(Math.random() * args.length);
     msg.channel.send({
         content: `I choose \`${args[randomNum]}\``
-    });
+    }).catch(console.error);
     logger.logSuccessfulCmd(client, msg);
 };

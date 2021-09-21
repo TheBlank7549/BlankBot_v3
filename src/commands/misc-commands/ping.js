@@ -15,5 +15,5 @@ module.exports.run = async (client, msg, args) => {
             content: `Pong, but \`${m.createdTimestamp - msg.createdTimestamp}ms\` later!`
         });
         logger.logSuccessfulCmd(client, msg);
-    });
+    }).catch(console.error);
 };

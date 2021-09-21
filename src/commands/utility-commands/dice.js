@@ -14,11 +14,17 @@ module.exports.run = (client, msg, args) => {
 
     if (!multiplier) return msg.channel.send({
         content: `\`${args[0]}\` is not a valid number`
-    });
+    }).catch(console.error);
 
     let randomNum = Math.ceil(Math.random() * multiplier);
     msg.channel.send({
-        content: `**${msg.author.username}** rolled a ${multiplier} sided dice\nIt rolled a **${randomNum}**`
-    });
+        content: `**${msg.author.username}** is rolling a ${multiplier} sided dice`
+    }).then(m => {
+        setTimeout(() => {
+            m.edit({
+                content: `**${msg.author.username}** rolled a **${randomNum}**`
+            });
+        }, 1000 * 1);
+    }).catch(console.error);
     logger.logSuccessfulCmd(client, msg);
 };

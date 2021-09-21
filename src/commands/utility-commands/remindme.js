@@ -20,7 +20,7 @@ module.exports.run = async (client, msg, args) => {
     if (!delay) {
         msg.channel.send({
             content: `\`${delayTime}\` is not a valid duration`
-        });
+        }).catch(console.error);
         logger.logFailedCmd(client, msg);
         return;
     };
@@ -41,5 +41,5 @@ module.exports.run = async (client, msg, args) => {
                 content: `<@${msg.author.id}>, it is time${message}`
             })
         }, delay.msTime);
-    });
+    }).catch(console.error);
 };

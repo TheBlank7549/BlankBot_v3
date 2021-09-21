@@ -28,7 +28,7 @@ module.exports.run = async (client, msg, args) => {
     if (!target) {
         msg.channel.send({
             content: 'I could not find that user'
-        });
+        }).catch(console.error);
         logger.logFailedCmd(client, msg);
         return;
     }
@@ -42,6 +42,6 @@ module.exports.run = async (client, msg, args) => {
 
     msg.channel.send({
         embeds: [avatarEmbed]
-    });
+    }).catch(console.error);
     logger.logSuccessfulCmd(client, msg);
 };
