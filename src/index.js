@@ -2,10 +2,6 @@
 const { Client, Intents, Collection } = require('discord.js');
 require('dotenv').config();
 
-// Setting the prefix, will modify it to allow custom server prefixes after implementing a database
-const defaultPrefix = process.env.defPREFIX
-let prefix = defaultPrefix;
-
 // Importing the event handlers
 const msgCreateEvent = require('./events/messageCreate.js');
 const readyEvent = require('./events/ready.js');
@@ -19,14 +15,14 @@ const client = new Client({
 });
 client.commands = new Collection();
 client.aliases = new Collection();
-client.helpEmbeds = new Collection();
+client.data = new Collection();
 
 // The command loader using fs
 require('./functions/commandLoader.js')(client);
 
 // The bot events
 client.on('ready', async () => readyEvent(client));
-client.on('messageCreate', async msg => msgCreateEvent(client, msg, prefix));
+client.on('messageCreate', async msg => msgCreateEvent(client, msg));
 
 // Logging into the account
 client.login(process.env.BOTTOKEN);

@@ -2,7 +2,8 @@ const { MessageEmbed } = require('discord.js');
 
 // Logs bot startup times to a fixed channel
 module.exports.logStartup = async client => {
-    const logChannel = client.channels.cache.find(ch => ch.id === '885581415792668742');
+    const config = client.data.get('config');
+    const logChannel = client.channels.cache.find(ch => ch.id === config.startupChannelId);
 
     const logEmbed = new MessageEmbed()
         .setColor('#ffffff')
@@ -16,8 +17,9 @@ module.exports.logStartup = async client => {
 
 // Logs successful commands to a fixed channel
 module.exports.logSuccessfulCmd = async (client, msg) => {
+    const config = client.data.get('config');
     const { author, channel, guild, content } = msg;
-    const logChannel = client.channels.cache.find(ch => ch.id === '884716667060502588');
+    const logChannel = client.channels.cache.find(ch => ch.id === config.logChannelId);
 
     const logEmbed = new MessageEmbed()
         .setColor('#ffffff')
@@ -45,8 +47,9 @@ module.exports.logSuccessfulCmd = async (client, msg) => {
 
 // Logs unsuccessful commands to a fixed channel
 module.exports.logFailedCmd = async (client, msg) => {
+    const config = client.data.get('config');
     const { author, channel, guild, content } = msg;
-    const logChannel = client.channels.cache.find(ch => ch.id === '884716667060502588');
+    const logChannel = client.channels.cache.find(ch => ch.id === config.logChannelId);
 
     const logEmbed = new MessageEmbed()
         .setColor('#ffffff')

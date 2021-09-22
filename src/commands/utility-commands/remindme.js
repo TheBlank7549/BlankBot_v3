@@ -1,5 +1,5 @@
 const logger = require('../../functions/logger.js');
-const delayConverter = require('../../functions/delayConverter.js');
+const delayConverter = require('../../functions/timeConverter.js');
 
 module.exports.info = {
     name: 'remindme',

@@ -63,8 +63,8 @@ module.exports.toMS = delayInTime => {
 };
 
 // Converts ms into a proper time
-module.exports.fromMS = delayInMs => {
-    return getProperTime(delayInMs);
+module.exports.fromMS = timeInMs => {
+    return getProperTime(timeInMs);
 };
 
 const getProperTime = msTime => {
