@@ -10,6 +10,12 @@ module.exports.info = {
 
 module.exports.run = async (client, msg, args) => {
     const { prefix, ownerId } = client.data.get('config');
+
+    const helpEmbed = new MessageEmbed()
+        .setColor('#ffffff')
+        .setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }))
+        .setTimestamp();
+
     // Checks if the default help is wanted, or a specific one
     if (args[0]) {
         let command;
@@ -37,49 +43,37 @@ module.exports.run = async (client, msg, args) => {
         } = command.info;
 
         // Constructs a basic embed
-        const helpEmbed = new MessageEmbed()
-            .setColor('#ffffff')
-            .setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }))
+        helpEmbed
             .setTitle(`Command info: ${name}`)
             .setDescription(description)
             .addField('Category:', `${category}`)
-            .addField('Use:', `\`${prefix}${usage}\``)
-            .setTimestamp();
+            .addField('Usage:', `\`${prefix}${usage}\``);
 
         // Adds an aliases field, if needed
         if (aliases) {
             helpEmbed.addField('Aliases:', `${aliases}`);
         };
+    } else {
+        // The default help, if no specific cmd is given
+        // Gets the names of all the commands from the clint.commands collection, then formatting then between backticks. joined with commas
+        const cmdArr = client.commands.map(cmd => cmd.info);
+        const ownerCmds = cmdArr.filter(cmd => cmd.category === 'owner').map(ownerCmd => `\`${ownerCmd.name}\``).join(', ');
+        const adminCmds = cmdArr.filter(cmd => cmd.category === 'admin').map(adminCmd => `\`${adminCmd.name}\``).join(', ');
+        const utilityCmds = cmdArr.filter(cmd => cmd.category === 'utility').map(utilityCmd => `\`${utilityCmd.name}\``).join(', ');
+        const miscCmds = cmdArr.filter(cmd => cmd.category === 'misc').map(miscCmd => `\`${miscCmd.name}\``).join(', ');
 
-        msg.channel.send({
-            embeds: [helpEmbed]
-        }).catch(console.error);
-        logger.logSuccessfulCmd(client, msg);
-        return;
+        // Constructing the basic embed
+        helpEmbed.setDescription(`Shows all the available commands\nSee additional information about commands with: \n\`${prefix}help <command name>\``)
+
+        // Adding the fields as needed
+        if (ownerCmds && msg.author.id === ownerId) helpEmbed.addField('Owner Commands:', ownerCmds);
+        if (adminCmds) helpEmbed.addField('Admin Commands:', adminCmds);
+        if (utilityCmds) helpEmbed.addField('Utility Commands:', utilityCmds);
+        if (miscCmds) helpEmbed.addField('Misc Commands:', miscCmds);
     };
 
-    // The default help, if no specific cmd is given
-    // Gets the names of all the commands from the clint.commands collection, then formatting then between backticks. joined with commas
-    const cmdArr = client.commands.map(cmd => cmd.info);
-    const ownerCmds = cmdArr.filter(cmd => cmd.category === 'owner').map(ownerCmd => `\`${ownerCmd.name}\``).join(', ');
-    const adminCmds = cmdArr.filter(cmd => cmd.category === 'admin').map(adminCmd => `\`${adminCmd.name}\``).join(', ');
-    const utilityCmds = cmdArr.filter(cmd => cmd.category === 'utility').map(utilityCmd => `\`${utilityCmd.name}\``).join(', ');
-    const miscCmds = cmdArr.filter(cmd => cmd.category === 'misc').map(miscCmd => `\`${miscCmd.name}\``).join(', ');
-
-    // Constructing the basic embed
-    const defaultHelpEmbed = new MessageEmbed()
-        .setColor('#ffffff')
-        .setDescription(`Shows all the available commands\nSee additional information about commands with: \n\`${prefix}help <command name>\``)
-        .setTimestamp();
-
-    // Adding the fields as needed
-    if (ownerCmds && msg.author.id === ownerId) defaultHelpEmbed.addField('Owner Commands:', ownerCmds);
-    if (adminCmds) defaultHelpEmbed.addField('Admin Commands:', adminCmds);
-    if (utilityCmds) defaultHelpEmbed.addField('Utility Commands:', utilityCmds);
-    if (miscCmds) defaultHelpEmbed.addField('Misc Commands:', miscCmds);
-
     msg.channel.send({
-        embeds: [defaultHelpEmbed]
+        embeds: [helpEmbed]
     }).catch(console.error);
     logger.logSuccessfulCmd(client, msg);
 };
