@@ -20,7 +20,6 @@ module.exports.run = async (client, msg, args) => {
             command = client.commands.get(client.aliases.get(args[0]));
         } else {
             // Executed if the target cmd doesn't exist
-            let { prefix } = config;
             msg.channel.send({
                 content: `The \`${args[0]}\` command does not exist\nSee a list of all commands with \`${prefix}help\``
             }).catch(console.error);
@@ -44,7 +43,7 @@ module.exports.run = async (client, msg, args) => {
             .setTitle(`Command info: ${name}`)
             .setDescription(description)
             .addField('Category:', `${category}`)
-            .addField('Use:', `${usage}`)
+            .addField('Use:', `\`${prefix}${usage}\``)
             .setTimestamp();
 
         // Adds an aliases field, if needed

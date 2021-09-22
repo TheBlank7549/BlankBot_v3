@@ -10,6 +10,7 @@ module.exports.info = {
 };
 
 module.exports.run = async (client, msg, args) => {
+    // Gets necessary information from the config file
     const {
         version,
         engine,
