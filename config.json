@@ -2,7 +2,7 @@
     "version": "3.1.1",
     "engine": "node v16.6.2",
     "primaryFramework": "discord.js",
-    "prefix": "bl.",
+    "prefix": "bl!",
     "owner": "TheBlank#7549",
     "ownerId":"713019901333340192",
     "startupChannelId":"885581415792668742",
