@@ -8,12 +8,12 @@ module.exports = client => {
 
         commandFolders.forEach(commandFolder => {
             // Getting files from the sub-folders
-            fs.readdir(`./src/commands/${commandFolder}`, (err, files) => {
+            fs.readdir(`./src/commands/${commandFolder}`, (err, commandFiles) => {
                 if (err) console.log(err);
 
                 // Filtering the js and non-js files
                 console.log(`Loading files from ${commandFolder}`);
-                const jsfiles = files.filter(f => f.endsWith('.js'));
+                const jsfiles = commandFiles.filter(file => file.endsWith('.js'));
                 if (jsfiles.length <= 0) {
                     return console.log(`No commands found in ${commandFolder}`);
                 };
@@ -32,4 +32,4 @@ module.exports = client => {
             });
         });
     });
-}
+};

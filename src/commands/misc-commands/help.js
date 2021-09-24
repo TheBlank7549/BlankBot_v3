@@ -55,10 +55,11 @@ module.exports.run = async (client, msg, args) => {
         };
     } else {
         // The default help, if no specific cmd is given
-        // Gets the names of all the commands from the clint.commands collection, then formatting then between backticks. joined with commas
+        // Gets the names of all the commands from the clint.commands collection, then formatting then between backticks, joined with commas
         const cmdArr = client.commands.map(cmd => cmd.info);
         const ownerCmds = cmdArr.filter(cmd => cmd.category === 'owner').map(ownerCmd => `\`${ownerCmd.name}\``).join(', ');
         const adminCmds = cmdArr.filter(cmd => cmd.category === 'admin').map(adminCmd => `\`${adminCmd.name}\``).join(', ');
+        const gameCmds = cmdArr.filter(cmd => cmd.category === 'game').map(gameCmd => `\`${gameCmd.name}\``).join(', ');
         const utilityCmds = cmdArr.filter(cmd => cmd.category === 'utility').map(utilityCmd => `\`${utilityCmd.name}\``).join(', ');
         const miscCmds = cmdArr.filter(cmd => cmd.category === 'misc').map(miscCmd => `\`${miscCmd.name}\``).join(', ');
 
@@ -68,6 +69,7 @@ module.exports.run = async (client, msg, args) => {
         // Adding the fields as needed
         if (ownerCmds && msg.author.id === ownerId) helpEmbed.addField('Owner Commands:', ownerCmds);
         if (adminCmds) helpEmbed.addField('Admin Commands:', adminCmds);
+        if (gameCmds) helpEmbed.addField('Game Commands:', gameCmds);
         if (utilityCmds) helpEmbed.addField('Utility Commands:', utilityCmds);
         if (miscCmds) helpEmbed.addField('Misc Commands:', miscCmds);
     };
