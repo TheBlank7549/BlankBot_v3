@@ -8,10 +8,10 @@ const readyEvent = require('./events/ready.js');
 
 // Creating the client and required collections
 const client = new Client({
-    intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES
-    ]
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES
+  ]
 });
 client.commands = new Collection();
 client.aliases = new Collection();
