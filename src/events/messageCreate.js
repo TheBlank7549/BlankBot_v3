@@ -8,7 +8,7 @@ module.exports = async (client, msg) => {
     if (!msg.content.toLowerCase().startsWith(prefix)) return;
 
     // Filters out msges not starting with the prefix, otherwise preparing args and cmdUsed
-    const args = msg.content.slice(prefix.length).toLowerCase().trim().split(/ /g);
+    const args = msg.content.slice(prefix.length).toLowerCase().trim().split(/ +/g);
     const cmdUsed = args.shift();
     let command;
 
