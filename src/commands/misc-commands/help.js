@@ -1,5 +1,5 @@
 const logger = require('../../functions/logger.js');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 
 module.exports.info = {
   name: 'help',
@@ -44,7 +44,7 @@ module.exports.run = async (client, msg, args) => {
 
     // Constructs a basic embed
     helpEmbed
-      .setTitle(`Command info: ${name}`)
+      .setTitle(`Command info for: ${name}`)
       .setDescription(description)
       .addField('Category:', `${category}`)
       .addField('Usage:', `\`${prefix}${usage}\``);
@@ -68,7 +68,7 @@ module.exports.run = async (client, msg, args) => {
 
     // Adding the fields as needed
     if (ownerCmds && msg.author.id === ownerId) helpEmbed.addField('Owner Commands:', ownerCmds);
-    if (adminCmds) helpEmbed.addField('Admin Commands:', adminCmds);
+    if (adminCmds && msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) helpEmbed.addField('Admin Commands:', adminCmds);
     if (gameCmds) helpEmbed.addField('Game Commands:', gameCmds);
     if (utilityCmds) helpEmbed.addField('Utility Commands:', utilityCmds);
     if (miscCmds) helpEmbed.addField('Misc Commands:', miscCmds);
