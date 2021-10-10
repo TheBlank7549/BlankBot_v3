@@ -66,7 +66,7 @@ module.exports.run = async (client, msg, args) => {
       },
       {
         name: 'Support Server:',
-        value: '[Join](https://www.google.com)',
+        value: '[Join](https://discord.gg/FgCNS96AkG)',
         inline: true
       },
     )
