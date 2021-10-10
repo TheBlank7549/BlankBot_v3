@@ -49,9 +49,9 @@ module.exports.run = async (client, msg, args) => {
       .addField('Category:', `${category}`)
       .addField('Usage:', `\`${prefix}${usage}\``);
 
-    // Adds an aliases field, if needed
+    // Adds an aliases field(if any), formatting it in an inline code block
     if (aliases) {
-      helpEmbed.addField('Aliases:', `${aliases}`);
+      helpEmbed.addField('Aliases:', `${aliases.map(al => `\`${al}\``).join(', ')}`);
     };
   } else {
     // The default help, if no specific cmd is given
