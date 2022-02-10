@@ -24,9 +24,9 @@ module.exports.run = async (client, msg, args) => {
   const opponent = msg.mentions.users.first();
 
   // Prevents playing against bots
-  // if (opponent.bot) return msg.channel.send({
-  //   content: 'You cannot play this game against a bot'
-  // });
+  if (opponent.bot) return msg.channel.send({
+    content: 'You cannot play this game against a bot'
+  });
 
   const opponentId = opponent.id;
 
@@ -314,6 +314,7 @@ function declareWinner(game, i, j) {
   if (game.currentPlayer === game.p1) game.winner = game.p2
   else game.winner = game.p1;
 
+  // Replaces the winning group of pieces with yellow circles
   game.display[i][j] = ':yellow_circle:';
   game.display[i + 1][j - 1] = ':yellow_circle:';
   game.display[i + 2][j - 2] = ':yellow_circle:';
@@ -354,44 +355,3 @@ function sendBoard(game, channel) {
     embeds: [boardEmbed]
   });
 };
-
-/**
- * O O O O O O O
- * O O O O O O O
- * O O O O O O O
- * O O O O O O O
- * O O O O O O O
- * O O O O O O O
- *
- * Horizontally ->
- * O O O O - - -
- * O O O O - - -
- * O O O O - - -
- * O O O O - - -
- * O O O O - - -
- * O O O O - - -
- *
- * Vertically ->
- * O O O O O O O
- * O O O O O O O
- * O O O O O O O
- * - - - - - - -
- * - - - - - - -
- * - - - - - - -
- *
- * LtR Diagonal ->
- * O O O O - - -
- * O O O O - - -
- * O O O O - - -
- * - - - - - - -
- * - - - - - - -
- * - - - - - - -
- *
- * RtL Diagonal ->
- * - - - O O O O
- * - - - O O O O
- * - - - O O O O
- * - - - - - - -
- * - - - - - - -
- * - - - - - - -
- */
