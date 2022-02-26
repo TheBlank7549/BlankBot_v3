@@ -260,7 +260,7 @@ function testForWin(game) {
   // Handles the entire board filling up
   if (game.currentTurn === 42) game.winner = 'none';
 
-  // The horizontals
+  // The Horizontals
   for (let i = 0; i < 6; i++) {
     for (let j = 0; j < 4; j++) {
       let slot1 = game.display[i][j] || Math.random();
@@ -268,7 +268,7 @@ function testForWin(game) {
       let slot3 = game.display[i][j + 2] || Math.random();
       let slot4 = game.display[i][j + 3] || Math.random();
 
-      if (slot1 === slot2 && slot2 === slot3 && slot3 === slot4) declareWinner(game, i, j);
+      if (slot1 === slot2 && slot2 === slot3 && slot3 === slot4) declareWinner(game, i, j, 'horizontal');
     };
   };
 
@@ -280,7 +280,7 @@ function testForWin(game) {
       let slot3 = game.display[i + 2][j] || Math.random();
       let slot4 = game.display[i + 3][j] || Math.random();
 
-      if (slot1 === slot2 && slot2 === slot3 && slot3 === slot4) declareWinner(game, i, j);
+      if (slot1 === slot2 && slot2 === slot3 && slot3 === slot4) declareWinner(game, i, j, 'vertical');
     };
   };
 
@@ -292,7 +292,7 @@ function testForWin(game) {
       let slot3 = game.display[i + 2][j + 2] || Math.random();
       let slot4 = game.display[i + 3][j + 3] || Math.random();
 
-      if (slot1 === slot2 && slot2 === slot3 && slot3 === slot4) declareWinner(game, i, j);
+      if (slot1 === slot2 && slot2 === slot3 && slot3 === slot4) declareWinner(game, i, j, 'ltr-diagonal');
     };
   };
 
@@ -305,20 +305,47 @@ function testForWin(game) {
       let slot3 = game.display[i + 2][j - 2] || Math.random();
       let slot4 = game.display[i + 3][j - 3] || Math.random();
 
-      if (slot1 === slot2 && slot2 === slot3 && slot3 === slot4) declareWinner(game, i, j);
+      if (slot1 === slot2 && slot2 === slot3 && slot3 === slot4) declareWinner(game, i, j, 'rtl-diagonal');
     };
   };
 };
 
-function declareWinner(game, i, j) {
+function declareWinner(game, i, j, method) {
   if (game.currentPlayer === game.p1) game.winner = game.p2
   else game.winner = game.p1;
 
-  // Replaces the winning group of pieces with yellow circles
-  game.display[i][j] = ':yellow_circle:';
-  game.display[i + 1][j - 1] = ':yellow_circle:';
-  game.display[i + 2][j - 2] = ':yellow_circle:';
-  game.display[i + 3][j - 3] = ':yellow_circle:';
+  switch (method) {
+    // Modifies the horizontal winning pieces
+    case 'horizontal':
+      game.display[i][j] = ':yellow_circle:';
+      game.display[i][j + 1] = ':yellow_circle:';
+      game.display[i][j + 2] = ':yellow_circle:';
+      game.display[i][j + 3] = ':yellow_circle:';
+      break;
+
+    // Modifies the vertical winning pieces
+    case 'vertical':
+      game.display[i][j] = ':yellow_circle:';
+      game.display[i + 1][j] = ':yellow_circle:';
+      game.display[i + 2][j] = ':yellow_circle:';
+      game.display[i + 3][j] = ':yellow_circle:';
+      break;
+
+    // Modifies the LtR diagonal winning pieces
+    case 'ltr-diagonal':
+      game.display[i][j] = ':yellow_circle:';
+      game.display[i + 1][j + 1] = ':yellow_circle:';
+      game.display[i + 2][j + 2] = ':yellow_circle:';
+      game.display[i + 3][j + 3] = ':yellow_circle:';
+      break;
+
+    // Modifies the RtL diagonal winning pieces
+    default:
+      game.display[i][j] = ':yellow_circle:';
+      game.display[i + 1][j - 1] = ':yellow_circle:';
+      game.display[i + 2][j - 2] = ':yellow_circle:';
+      game.display[i + 3][j - 3] = ':yellow_circle:';
+  };
 };
 
 function sendBoard(game, channel) {
